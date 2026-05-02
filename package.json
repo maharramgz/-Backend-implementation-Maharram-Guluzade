@@ -1,0 +1,19 @@
+{
+  "name": "laundry-room-helper-api",
+  "version": "1.0.0",
+  "description": "REST API for shared laundry room booking (Machine + Booking entities)",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.7.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}
