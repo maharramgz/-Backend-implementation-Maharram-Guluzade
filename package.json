@@ -1,7 +1,7 @@
 {
   "name": "laundry-room-helper-api",
   "version": "1.0.0",
-  "description": "REST API for shared laundry room booking (Machine + Booking entities)",
+  "description": "Express.js REST API for the Laundry Room Helper application (Machine and Booking entities).",
   "main": "src/server.js",
   "type": "module",
   "scripts": {

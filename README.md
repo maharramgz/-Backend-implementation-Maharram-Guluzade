@@ -1,37 +1,59 @@
 # Laundry Room Helper — Backend
 
-Node.js + Express REST API for **Machine** and **Booking** (shared laundry room booking).  
-SQLite persistence (`data/app.db`). No login.
+REST API for the **Laundry Room Helper** application.
+
+- Framework: **Node.js + Express.js**
+- Storage: **SQLite** via `better-sqlite3` (file `data/app.db`)
+- Entities: **Machine** and **Booking** (linked by `machineId`)
+- Public API — no registration, no login
+
+---
+
+## Project structure
+
+```
+backend-repo/
+├── src/
+│   ├── server.js          Express app entry point
+│   ├── db.js              SQLite connection and schema
+│   ├── seed.js            Default machines on first run
+│   ├── dao/
+│   │   ├── machineDao.js  CRUD methods for Machine
+│   │   └── bookingDao.js  CRUD methods for Booking
+│   └── routes/
+│       ├── machines.js    REST endpoints for /api/machines
+│       └── bookings.js    REST endpoints for /api/bookings
+└── docs/
+    ├── SCHEMAS_AND_DAO.md Schema definitions and DAO methods
+    └── API_ENDPOINTS.md   REST endpoint reference
+```
+
+---
 
 ## Requirements
 
-- Node.js 18+
+- Node.js **18+**
 
-## Install & run
+## Install and run
 
 ```bash
-cd backend
 npm install
 npm start
 ```
 
-API: `http://127.0.0.1:3000`
+The API listens on `http://127.0.0.1:3000` by default.  
+Use `PORT=4000 npm start` to change the port.
 
-- `GET /health`
-- `GET /api/machines`
-- `GET /api/bookings`
-
-See `docs/API_ENDPOINTS.md` and `docs/SCHEMAS_AND_DAO.md` for homework submission.
-
-## Push to GitHub
+## Quick check
 
 ```bash
-git init
-git add .
-git commit -m "Initial backend: Express CRUD for Machine and Booking"
-git branch -M main
-git remote add origin git@github.com:maharramgz/-Backend-implementation-Maharram-Guluzade.git
-git push -u origin main
+curl http://127.0.0.1:3000/health
+curl http://127.0.0.1:3000/api/machines
 ```
 
-If the remote already has commits, use `git pull origin main --allow-unrelated-histories` before pushing.
+---
+
+## Documentation
+
+- [`docs/SCHEMAS_AND_DAO.md`](docs/SCHEMAS_AND_DAO.md) — schemas and DAO method list
+- [`docs/API_ENDPOINTS.md`](docs/API_ENDPOINTS.md) — every REST endpoint with examples

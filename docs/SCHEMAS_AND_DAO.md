@@ -1,60 +1,58 @@
-# Schema diagram (for uuBmlDraw)
+# Schemas and DAO methods
 
-Draw two entities:
+The application has **exactly two data entities** linked by a relationship:
 
-- **Machine** (1) — has — (0..*) **Booking**
-- **Booking** has foreign key `machineId` → **Machine.machineId**
-
-Relation: one machine can have many bookings; each booking belongs to exactly one machine.
+- `Machine` (1) — has — (0..*) `Booking`
+- Each `Booking` references one `Machine` through the foreign key `machineId`.
 
 ---
 
-# Machine — schema (JS object for homework template)
+## Machine — schema
 
 ```javascript
 const machineSchema = {
-  machineId: "", // string, primary key, optional on create (generated if omitted)
-  machineName: "", // string, required
-  machineType: "", // string, e.g. "Washing Machine", "Dryer"
-  status: "available", // string: available | occupied | out-of-order (app-specific)
-  locationNote: "", // string
-  capacityKg: "", // string, e.g. "7 kg"
+  machineId: "",        // string, primary key (auto-generated if omitted)
+  machineName: "",      // string, required, e.g. "Washer 1"
+  machineType: "",      // string, e.g. "Washing Machine" | "Dryer"
+  status: "available",  // string: available | occupied | out-of-order
+  locationNote: "",     // string, e.g. "Ground floor, left side"
+  capacityKg: "",       // string, e.g. "7 kg"
 };
 ```
 
-## Machine — DAO methods
+### Machine — DAO methods
 
 | Name | Description |
 |------|-------------|
-| `create(machine) → machine` | Inserts a machine; returns the stored row. |
-| `get(filter) → machine \| machine[] \| null` | `filter = {}` lists all; `{ machineId }` returns one or null. |
-| `update(machineId, patch) → machine \| null` | Partial update; returns updated row or null. |
-| `remove(machineId) → boolean` | Deletes machine (cascades bookings in SQLite). |
+| `create(machine) -> machine` | Inserts a machine and returns the stored object. |
+| `get(filter) -> machine \| machine[] \| null` | `filter = {}` returns all; `{ machineId }` returns one or `null`. |
+| `update(machineId, patch) -> machine \| null` | Partial update; returns the updated object or `null` if not found. |
+| `remove(machineId) -> boolean` | Deletes the machine; cascades and removes its bookings. |
 
 ---
 
-# Booking — schema (JS object for homework template)
+## Booking — schema
 
 ```javascript
 const bookingSchema = {
-  bookingId: "", // string, primary key, optional on create (UUID)
-  machineId: "", // string, required, FK → machineSchema.machineId
-  customerName: "", // string, required
-  contactType: "email", // "email" | "phone"
-  contactValue: "", // string, email or phone for verification
-  startTime: "", // ISO-like string (datetime-local compatible)
-  endTime: "", // ISO-like string
-  bookingStatus: "active", // string: active | cancelled
-  verificationCode: null, // string | null, for cancel flow
-  createdAt: "", // ISO timestamp
+  bookingId: "",            // string, primary key (UUID, auto-generated if omitted)
+  machineId: "",            // string, required, foreign key -> machineSchema.machineId
+  customerName: "",         // string, required
+  contactType: "email",     // "email" | "phone"
+  contactValue: "",         // string, email address or phone number
+  startTime: "",            // string, ISO datetime, required
+  endTime: "",              // string, ISO datetime, required
+  bookingStatus: "active",  // string: active | cancelled
+  verificationCode: null,   // string | null, used for cancellation verification
+  createdAt: "",            // string, ISO timestamp (auto-generated if omitted)
 };
 ```
 
-## Booking — DAO methods
+### Booking — DAO methods
 
 | Name | Description |
 |------|-------------|
-| `create(booking) → booking` | Inserts booking; machine must exist (FK). |
-| `get(filter) → booking \| booking[] \| null` | `filter = {}` all; `{ bookingId }` one; `{ machineId }` list for machine. |
-| `update(bookingId, patch) → booking \| null` | Partial update. |
-| `remove(bookingId) → boolean` | Deletes booking. |
+| `create(booking) -> booking` | Inserts a booking; the referenced `machineId` must exist. |
+| `get(filter) -> booking \| booking[] \| null` | `filter = {}` all; `{ bookingId }` one; `{ machineId }` all bookings of one machine. |
+| `update(bookingId, patch) -> booking \| null` | Partial update; returns the updated object or `null`. |
+| `remove(bookingId) -> boolean` | Deletes the booking. |

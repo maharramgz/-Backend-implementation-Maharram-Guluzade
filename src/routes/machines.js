@@ -4,8 +4,7 @@ import * as machineDao from "../dao/machineDao.js";
 const router = Router();
 
 router.get("/", (_req, res) => {
-  const list = machineDao.get({});
-  res.json(list);
+  res.json(machineDao.get({}));
 });
 
 router.get("/:machineId", (req, res) => {
@@ -17,10 +16,15 @@ router.get("/:machineId", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const { machineName, machineType, status, locationNote, capacityKg, machineId } = req.body || {};
+  const { machineName, machineType, status, locationNote, capacityKg, machineId } =
+    req.body || {};
+
   if (!machineName || !machineType) {
-    return res.status(400).json({ error: "machineName and machineType are required" });
+    return res
+      .status(400)
+      .json({ error: "machineName and machineType are required" });
   }
+
   try {
     const created = machineDao.create({
       machineId,
@@ -31,11 +35,11 @@ router.post("/", (req, res) => {
       capacityKg,
     });
     res.status(201).json(created);
-  } catch (e) {
-    if (e?.code === "SQLITE_CONSTRAINT_PRIMARYKEY") {
+  } catch (error) {
+    if (error?.code === "SQLITE_CONSTRAINT_PRIMARYKEY") {
       return res.status(409).json({ error: "Machine id already exists" });
     }
-    throw e;
+    throw error;
   }
 });
 
@@ -48,8 +52,8 @@ router.put("/:machineId", (req, res) => {
 });
 
 router.delete("/:machineId", (req, res) => {
-  const ok = machineDao.remove(req.params.machineId);
-  if (!ok) {
+  const removed = machineDao.remove(req.params.machineId);
+  if (!removed) {
     return res.status(404).json({ error: "Machine not found" });
   }
   res.status(204).send();
