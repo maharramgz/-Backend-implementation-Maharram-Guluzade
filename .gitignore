@@ -1,5 +1,11 @@
 node_modules/
 data/*.db
 .env
+.env.local
 .DS_Store
 npm-debug.log*
+
+# Next.js
+frontend/.next/
+frontend/out/
+frontend/.turbo/
