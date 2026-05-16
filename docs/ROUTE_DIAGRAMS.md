@@ -7,8 +7,8 @@ Each section: **page → components → `lib/api.js` → REST**.
 ```mermaid
 flowchart LR
   P[app/page.js] --> L[Link cards]
-  L -.->|navigate| M[/machines]
-  L -.->|navigate| B[/bookings]
+  L -.->|navigate| RM["/machines"]
+  L -.->|navigate| RB["/bookings"]
 ```
 
 Static content only (no `fetch` on this page).

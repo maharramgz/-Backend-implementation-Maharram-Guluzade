@@ -32,17 +32,17 @@ flowchart TB
 
 ```mermaid
 flowchart LR
-  Home(/) --> ML(/machines)
-  Home --> BL(/bookings)
-  ML --> MN(/machines/new)
-  ML --> MD(/machines/:id)
-  MD --> ME(/machines/:id/edit)
-  MD --> MS(/machines/:id/schedule)
-  BL --> BN(/bookings/new)
-  BL --> BS(/bookings/schedule)
-  BL --> BM(/bookings/manage)
-  BL --> BD(/bookings/:id)
-  BD --> BE(/bookings/:id/edit)
+  Home["/"] --> ML["/machines"]
+  Home --> BL["/bookings"]
+  ML --> MN["/machines/new"]
+  ML --> MD["/machines/:id"]
+  MD --> ME["/machines/:id/edit"]
+  MD --> MS["/machines/:id/schedule"]
+  BL --> BN["/bookings/new"]
+  BL --> BS["/bookings/schedule"]
+  BL --> BM["/bookings/manage"]
+  BL --> BD["/bookings/:id"]
+  BD --> BE["/bookings/:id/edit"]
 ```
 
 ## Diagram conventions
