@@ -28,6 +28,14 @@ NEXT_PUBLIC_API_URL=http://127.0.0.1:4100 npm run dev
 > repository into a clean path (for example
 > `~/projects/laundry-room-helper`) before running this app.
 
+## Homework 4 (frontend)
+
+See the course submission checklist in:
+
+- [`docs/ASSIGNMENT4_ROUTE_LIST.md`](../docs/ASSIGNMENT4_ROUTE_LIST.md) — full route list + CRUD matrix  
+- [`docs/ASSIGNMENT4_SPA_DIAGRAM.md`](../docs/ASSIGNMENT4_SPA_DIAGRAM.md) — SPA diagram blueprint (uuBml Draw)  
+- [`docs/ASSIGNMENT4_ROUTE_DIAGRAMS.md`](../docs/ASSIGNMENT4_ROUTE_DIAGRAMS.md) — one diagram blueprint per route  
+
 ## Screens
 
 - **Overview** — list of machines with current status (User Story 1)

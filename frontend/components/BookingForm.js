@@ -3,15 +3,9 @@
 import { useEffect, useState } from "react";
 import { api, helpers } from "../lib/api";
 
-export default function BookingForm({
-  machines,
-  bookings,
-  selectedMachine,
-  onSelectMachine,
-  onCreated,
-}) {
+export default function BookingForm({ machines, bookings, defaultMachineId, onCreated }) {
   const initialTimes = helpers.defaultTimes();
-
+  const [machineId, setMachineId] = useState("");
   const [customerName, setCustomerName] = useState("");
   const [contactType, setContactType] = useState("email");
   const [contactValue, setContactValue] = useState("");
@@ -20,8 +14,24 @@ export default function BookingForm({
   const [feedback, setFeedback] = useState({ message: "", type: "" });
 
   useEffect(() => {
+    if (machines.length === 0) return;
+    const preferred =
+      defaultMachineId &&
+      machines.some((m) => m.machineId === defaultMachineId)
+        ? defaultMachineId
+        : null;
+    setMachineId((prev) => {
+      if (preferred) return preferred;
+      if (prev && machines.some((m) => m.machineId === prev)) return prev;
+      return machines[0].machineId;
+    });
+  }, [machines, defaultMachineId]);
+
+  useEffect(() => {
     setFeedback({ message: "", type: "" });
-  }, [selectedMachine?.machineId]);
+  }, [machineId]);
+
+  const selectedMachine = machines.find((m) => m.machineId === machineId) || null;
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -70,7 +80,7 @@ export default function BookingForm({
     }
 
     try {
-      await api.createBooking({
+      const created = await api.createBooking({
         machineId: selectedMachine.machineId,
         customerName: customerName.trim(),
         contactType,
@@ -91,7 +101,7 @@ export default function BookingForm({
         type: "success",
       });
 
-      await onCreated?.();
+      await onCreated?.(created);
     } catch (error) {
       setFeedback({ message: error.message, type: "error" });
     }
@@ -100,9 +110,9 @@ export default function BookingForm({
   return (
     <div className="panel-grid">
       <article className="panel">
-        <h3>Selected Machine</h3>
+        <h3>Selected machine</h3>
         {!selectedMachine && (
-          <div className="empty-state">No machine selected.</div>
+          <div className="empty-state">No machines available.</div>
         )}
         {selectedMachine && (
           <div className="summary-card">
@@ -129,7 +139,7 @@ export default function BookingForm({
                 <strong>Location:</strong> {selectedMachine.locationNote}
               </li>
               <li>
-                <strong>Bookings found:</strong>{" "}
+                <strong>Bookings on this machine:</strong>{" "}
                 {bookings.filter((b) => b.machineId === selectedMachine.machineId).length}
               </li>
             </ul>
@@ -138,13 +148,13 @@ export default function BookingForm({
       </article>
 
       <article className="panel">
-        <h3>Create Booking</h3>
+        <h3>Create booking</h3>
         <form className="booking-form" onSubmit={handleSubmit}>
           <label>
             <span>Machine</span>
             <select
-              value={selectedMachine?.machineId || ""}
-              onChange={(event) => onSelectMachine(event.target.value)}
+              value={machineId}
+              onChange={(event) => setMachineId(event.target.value)}
               required
             >
               {machines.map((machine) => (

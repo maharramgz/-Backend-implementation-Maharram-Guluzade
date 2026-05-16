@@ -30,7 +30,10 @@ by a one-to-many relationship. There is no registration or login.
 │   └── lib/api.js
 ├── docs/                   Homework documentation
 │   ├── SCHEMAS_AND_DAO.md
-│   └── API_ENDPOINTS.md
+│   ├── API_ENDPOINTS.md
+│   ├── ASSIGNMENT4_ROUTE_LIST.md
+│   ├── ASSIGNMENT4_SPA_DIAGRAM.md
+│   └── ASSIGNMENT4_ROUTE_DIAGRAMS.md
 ├── package.json            Backend dependencies
 └── README.md
 ```
@@ -79,6 +82,13 @@ NEXT_PUBLIC_API_URL=http://127.0.0.1:4100 npm run dev
 
 ## Documentation
 
-- [`docs/SCHEMAS_AND_DAO.md`](docs/SCHEMAS_AND_DAO.md) — schemas and DAO method list
-- [`docs/API_ENDPOINTS.md`](docs/API_ENDPOINTS.md) — every REST endpoint with examples
-- [`frontend/README.md`](frontend/README.md) — frontend usage notes
+- [`docs/SCHEMAS_AND_DAO.md`](docs/SCHEMAS_AND_DAO.md) — schemas and DAO method list  
+- [`docs/API_ENDPOINTS.md`](docs/API_ENDPOINTS.md) — every REST endpoint with examples  
+- [`docs/ASSIGNMENT4_ROUTE_LIST.md`](docs/ASSIGNMENT4_ROUTE_LIST.md) — Homework 4 route list and CRUD matrix  
+- [`docs/ASSIGNMENT4_SPA_DIAGRAM.md`](docs/ASSIGNMENT4_SPA_DIAGRAM.md) — SPA diagram blueprint (uuBml Draw)  
+- [`docs/ASSIGNMENT4_ROUTE_DIAGRAMS.md`](docs/ASSIGNMENT4_ROUTE_DIAGRAMS.md) — per-route diagram blueprints  
+- [`frontend/README.md`](frontend/README.md) — frontend usage notes  
+
+### Homework 4 (React frontend)
+
+The UI is **React** via **Next.js App Router** with **URL routes** for full **CRUD** on **Machine** and **Booking**. For the assignment, copy the Mermaid figures from the three `ASSIGNMENT4_*.md` files into **uuBml Draw** (SPA overview + one sheet per route), then link your GitHub repository at the top of the submission as required.

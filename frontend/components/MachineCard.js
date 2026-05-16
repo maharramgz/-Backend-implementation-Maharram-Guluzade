@@ -1,8 +1,15 @@
 "use client";
 
+import Link from "next/link";
 import { helpers } from "../lib/api";
 
-export default function MachineCard({ machine, bookings, onBook, onSchedule }) {
+export default function MachineCard({
+  machine,
+  bookings,
+  detailHref,
+  bookHref,
+  scheduleHref,
+}) {
   const status = helpers.computeMachineStatus(machine, bookings);
 
   return (
@@ -10,7 +17,13 @@ export default function MachineCard({ machine, bookings, onBook, onSchedule }) {
       <div className="machine-card-top">
         <div>
           <p className="machine-type">{machine.machineType}</p>
-          <h3 className="machine-name">{machine.machineName}</h3>
+          {detailHref ? (
+            <h3 className="machine-name">
+              <Link href={detailHref}>{machine.machineName}</Link>
+            </h3>
+          ) : (
+            <h3 className="machine-name">{machine.machineName}</h3>
+          )}
         </div>
         <span className={`status-badge status-${status}`}>
           {helpers.statusLabel(status)}
@@ -29,12 +42,16 @@ export default function MachineCard({ machine, bookings, onBook, onSchedule }) {
       </dl>
 
       <div className="machine-card-actions">
-        <button type="button" className="secondary-btn" onClick={onBook}>
-          Book now
-        </button>
-        <button type="button" className="ghost-btn" onClick={onSchedule}>
-          View schedule
-        </button>
+        {bookHref ? (
+          <Link href={bookHref} className="secondary-btn link-btn">
+            Book now
+          </Link>
+        ) : null}
+        {scheduleHref ? (
+          <Link href={scheduleHref} className="ghost-btn link-btn">
+            View schedule
+          </Link>
+        ) : null}
       </div>
     </article>
   );

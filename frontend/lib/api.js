@@ -24,9 +24,17 @@ async function request(path, options = {}) {
 export const api = {
   listMachines: () => request("/api/machines"),
   getMachine: (machineId) => request(`/api/machines/${machineId}`),
+  createMachine: (machine) =>
+    request("/api/machines", { method: "POST", body: JSON.stringify(machine) }),
+  updateMachine: (machineId, patch) =>
+    request(`/api/machines/${machineId}`, { method: "PUT", body: JSON.stringify(patch) }),
+  deleteMachine: (machineId) =>
+    request(`/api/machines/${machineId}`, { method: "DELETE" }),
 
   listBookings: (machineId) =>
     request(machineId ? `/api/bookings?machineId=${encodeURIComponent(machineId)}` : "/api/bookings"),
+
+  getBooking: (bookingId) => request(`/api/bookings/${bookingId}`),
 
   createBooking: (booking) =>
     request("/api/bookings", { method: "POST", body: JSON.stringify(booking) }),
