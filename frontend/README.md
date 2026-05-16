@@ -3,6 +3,26 @@
 Next.js (App Router) frontend for the Laundry Room Helper application.
 Talks to the Express backend over REST.
 
+## Path with `#` and Next.js (read this if you see a runtime error)
+
+If your project lives under a folder like `Business Model #2`, **Next.js will fail at runtime** with errors such as:
+
+> Could not find the module `.../global-error.js#` in the React Client Manifest
+
+That is a **known limitation**: `#` is treated specially in URLs, and React Server Components break when the absolute file path contains `#`.
+
+**Fix:** clone or copy the repository to a path **without** `#`, then install and run:
+
+```bash
+cd ~
+git clone git@github.com:maharramgz/-Backend-implementation-Maharram-Guluzade.git laundry-room-helper
+cd laundry-room-helper/frontend
+npm install
+npm run dev
+```
+
+Running `npm run dev` from a `#` path is **blocked on purpose** by `scripts/check-project-path.mjs` so you get this explanation instead of a cryptic overlay.
+
 ## Requirements
 
 - Node.js 18+

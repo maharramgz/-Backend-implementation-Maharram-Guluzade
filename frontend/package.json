@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/check-project-path.mjs",
+    "prebuild": "node scripts/check-project-path.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
