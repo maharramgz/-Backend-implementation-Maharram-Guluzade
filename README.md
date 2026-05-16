@@ -1,12 +1,11 @@
 # Laundry Room Helper
 
-Full implementation for the Laundry Room Helper application.
+Full-stack laundry room booking application.
 
-- **Backend** — Node.js + Express.js REST API with SQLite storage
-- **Frontend** — Next.js (App Router) UI that consumes the REST API
+- **Backend** — Node.js, Express.js, SQLite (`better-sqlite3`)
+- **Frontend** — React (Next.js 15 App Router) consuming the REST API
 
-The application has two data entities, `Machine` and `Booking`, linked
-by a one-to-many relationship. There is no registration or login.
+Two entities: **Machine** (parent) and **Booking** (child, `machineId` foreign key). No registration or login.
 
 ---
 
@@ -14,27 +13,23 @@ by a one-to-many relationship. There is no registration or login.
 
 ```
 .
-├── src/                    Express backend (API entry point)
+├── src/                    Express API
 │   ├── server.js
 │   ├── db.js
 │   ├── seed.js
 │   ├── dao/
-│   │   ├── machineDao.js
-│   │   └── bookingDao.js
 │   └── routes/
-│       ├── machines.js
-│       └── bookings.js
-├── frontend/               Next.js frontend that calls the backend
+├── frontend/               Next.js app
 │   ├── app/
 │   ├── components/
 │   └── lib/api.js
-├── docs/                   Homework documentation
+├── docs/
 │   ├── SCHEMAS_AND_DAO.md
 │   ├── API_ENDPOINTS.md
-│   ├── ASSIGNMENT4_ROUTE_LIST.md
-│   ├── ASSIGNMENT4_SPA_DIAGRAM.md
-│   └── ASSIGNMENT4_ROUTE_DIAGRAMS.md
-├── package.json            Backend dependencies
+│   ├── ROUTE_LIST.md
+│   ├── SPA_DIAGRAM.md
+│   └── ROUTE_DIAGRAMS.md
+├── package.json
 └── README.md
 ```
 
@@ -42,20 +37,14 @@ by a one-to-many relationship. There is no registration or login.
 
 ## Run the backend
 
-From the repository root:
-
 ```bash
 npm install
 npm start
 ```
 
-Backend listens on `http://127.0.0.1:3000`.
-
-Use a different port with `PORT=4100 npm start`.
+Default: `http://127.0.0.1:3000`. Override: `PORT=4100 npm start`.
 
 ## Run the frontend
-
-In a second terminal:
 
 ```bash
 cd frontend
@@ -63,32 +52,21 @@ npm install
 npm run dev
 ```
 
-Frontend opens at `http://127.0.0.1:3001`.
-
-If the backend listens on a non-default port, point the frontend at it:
+Default: `http://127.0.0.1:3001`. Non-default API URL:
 
 ```bash
-cd frontend
 NEXT_PUBLIC_API_URL=http://127.0.0.1:4100 npm run dev
 ```
 
-> **Note about local paths.** Next.js 15 cannot resolve modules when the
-> absolute project path contains a `#` character. If your working folder
-> contains `#`, clone the repository into a clean path
-> (for example `~/projects/laundry-room-helper`) before running the
-> frontend. The backend is unaffected.
+**Next.js:** the absolute project path must not contain a `#` character (React Server Components limitation). Use a checkout directory whose full path has no `#`.
 
 ---
 
 ## Documentation
 
-- [`docs/SCHEMAS_AND_DAO.md`](docs/SCHEMAS_AND_DAO.md) — schemas and DAO method list  
-- [`docs/API_ENDPOINTS.md`](docs/API_ENDPOINTS.md) — every REST endpoint with examples  
-- [`docs/ASSIGNMENT4_ROUTE_LIST.md`](docs/ASSIGNMENT4_ROUTE_LIST.md) — Homework 4 route list and CRUD matrix  
-- [`docs/ASSIGNMENT4_SPA_DIAGRAM.md`](docs/ASSIGNMENT4_SPA_DIAGRAM.md) — SPA diagram blueprint (uuBml Draw)  
-- [`docs/ASSIGNMENT4_ROUTE_DIAGRAMS.md`](docs/ASSIGNMENT4_ROUTE_DIAGRAMS.md) — per-route diagram blueprints  
-- [`frontend/README.md`](frontend/README.md) — frontend usage notes  
-
-### Homework 4 (React frontend)
-
-The UI is **React** via **Next.js App Router** with **URL routes** for full **CRUD** on **Machine** and **Booking**. For the assignment, copy the Mermaid figures from the three `ASSIGNMENT4_*.md` files into **uuBml Draw** (SPA overview + one sheet per route), then link your GitHub repository at the top of the submission as required.
+- [`docs/SCHEMAS_AND_DAO.md`](docs/SCHEMAS_AND_DAO.md) — entity schemas and DAO
+- [`docs/API_ENDPOINTS.md`](docs/API_ENDPOINTS.md) — REST reference
+- [`docs/ROUTE_LIST.md`](docs/ROUTE_LIST.md) — frontend URL routes and CRUD map
+- [`docs/SPA_DIAGRAM.md`](docs/SPA_DIAGRAM.md) — high-level SPA structure (Mermaid)
+- [`docs/ROUTE_DIAGRAMS.md`](docs/ROUTE_DIAGRAMS.md) — per-route data flow (Mermaid)
+- [`frontend/README.md`](frontend/README.md) — frontend details

@@ -1,8 +1,6 @@
-# Homework 4 — Per-route diagrams (blueprint for uuBml Draw)
+# Per-route data flow (frontend)
 
-For each route, create **one diagram** in uuBml Draw: **Page → main components → `api.*` calls → REST**.
-
----
+Each section: **page → components → `lib/api.js` → REST**.
 
 ## `/` — Home
 
@@ -15,8 +13,6 @@ flowchart LR
 
 Static content only (no `fetch` on this page).
 
----
-
 ## `/machines` — Machine list
 
 ```mermaid
@@ -27,8 +23,6 @@ flowchart LR
   API --> R2[GET /api/bookings]
 ```
 
----
-
 ## `/machines/new` — Create machine
 
 ```mermaid
@@ -37,8 +31,6 @@ flowchart LR
   F --> API[createMachine]
   API --> R[POST /api/machines]
 ```
-
----
 
 ## `/machines/[machineId]` — Machine detail + delete
 
@@ -52,8 +44,6 @@ flowchart LR
   API3 --> D[DELETE /api/machines/:id]
 ```
 
----
-
 ## `/machines/[machineId]/edit` — Update machine
 
 ```mermaid
@@ -65,9 +55,7 @@ flowchart LR
   U --> R2[PUT /api/machines/:id]
 ```
 
----
-
-## `/machines/[machineId]/schedule` — Read schedule for one machine
+## `/machines/[machineId]/schedule` — Schedule for one machine
 
 ```mermaid
 flowchart LR
@@ -76,8 +64,6 @@ flowchart LR
   API --> R1[GET /api/machines]
   API --> R2[GET /api/bookings]
 ```
-
----
 
 ## `/bookings` — Booking list
 
@@ -88,8 +74,6 @@ flowchart LR
   API --> R1[GET /api/bookings]
   API --> R2[GET /api/machines]
 ```
-
----
 
 ## `/bookings/new` — Create booking
 
@@ -102,8 +86,6 @@ flowchart LR
   L1 --> G2[GET /api/bookings]
   C --> P2[POST /api/bookings]
 ```
-
----
 
 ## `/bookings/[bookingId]` — Booking detail + delete + cancel panel
 
@@ -119,8 +101,6 @@ flowchart LR
   U --> PU[PUT /api/bookings/:id]
 ```
 
----
-
 ## `/bookings/[bookingId]/edit` — Update booking
 
 ```mermaid
@@ -134,8 +114,6 @@ flowchart LR
   U --> PU[PUT /api/bookings/:id]
 ```
 
----
-
 ## `/bookings/schedule` — Schedule selector
 
 ```mermaid
@@ -143,8 +121,6 @@ flowchart LR
   P[app/bookings/schedule/page.js] --> S[ScheduleList]
   S --> API[listMachines + listBookings]
 ```
-
----
 
 ## `/bookings/manage` — Cancel with verification
 
@@ -157,6 +133,4 @@ flowchart LR
   U --> PU[PUT /api/bookings/:id]
 ```
 
----
-
-These Mermaid blocks are intentionally small so you can redraw them quickly in uuBml Draw while keeping the same structure.
+Mermaid diagrams render on GitHub and in editors that support Mermaid previews.
